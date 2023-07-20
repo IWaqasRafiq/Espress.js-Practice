@@ -1,17 +1,21 @@
-console.log("this is express server hello world");
-
 import express from 'express';
-const app = express()
-const PORT = process.env.PORT || 3000
+import path from 'path';
+const __dirname = path.resolve();
 
-app.get('/', (req, res) => {
-  console.log('Hello World!', new Date());
-  res.send('Hello World!' + new Date());
-})
-app.get('/profile', (req, res) => {
-  console.log('this is profile', new Date());
-  res.send(`this is profile ab chal bhi ja${new Date()}`);
-})
+import apiv1Router from './API1/index.mjs'
+import apiv2Router from './API2/index.mjs'
+
+const app = express()
+
+app.use(express.json()); 
+
+
+app.use("/api/v1", apiv1Router)
+app.use("/api/v2", apiv2Router)
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
