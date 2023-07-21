@@ -17,6 +17,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const PORT = process.env.PORT || 3000
 
+app.get('/', (req, res) => {
+  console.log('this is login!', new Date());
+  res.send('this is login v1' + new Date());
+})
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
 })
